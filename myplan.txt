@@ -1,0 +1,33 @@
+Task:  figure out how to read/write JSON in java; write the supposed generated class by hand, to figure out how to write the serializer function for each class, and the de-serializer for the how package; during this task, I will only write primitive types and strings as the classes' fields 
+Estimated Time:  4 hours
+Target Deadline:  2/3/2020 12pm
+Actual Time:
+Actual Delivery:
+Commit ID:
+Comments:
+
+Task:  add support for custom classes and arrays for hand-written serializer and deserializer; no cycles in class dependency graph here
+Estimated Time:  2 hours
+Target Deadline:  2/4/2020 12:00pm
+Actual Time:
+Actual Delivery:
+Commit ID:
+Comments:
+
+
+Task:  figure out and add support for cycles in class dependency graph
+Estimated Time:  2 hours
+Target Deadline:  2/4/2020 3:00pm
+Actual Time:
+Actual Delivery:
+Commit ID:
+Comments:
+
+
+Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them 
+Estimated Time:  5 hours
+Target Deadline:  2/4/2020 12:00pm
+Actual Time:
+Actual Delivery:
+Commit ID:
+Comments:
