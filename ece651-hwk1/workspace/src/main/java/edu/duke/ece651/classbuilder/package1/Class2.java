@@ -1,5 +1,9 @@
 package edu.duke.ece651.classbuilder.package1;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Class2 {
@@ -63,19 +67,52 @@ public class Class2 {
     d1 = x;
   }
   //bcslfd
-  public JSONObject toJSON(int id) {
+
+  public JSONObject toJSON() {
+    HashMap<Integer, ArrayList<Object>> map = new HashMap<>();
+    return toJSON(map);
+  }
+
+  public JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
+    String className = "Class2";
+    int classID = className.hashCode();
+    
     JSONObject json_object = new JSONObject();
+
+    int counter = 0;
+    
+    if (map.containsKey(classID)) {
+      ArrayList<Object> objectList = map.get(classID);
+      for (counter = 0; counter < objectList.size(); counter++) {
+        if (objectList.get(counter) == this) {
+          String id = String.valueOf(classID) + "_" + String.valueOf(counter);
+          json_object.put("ref", id);
+          return json_object;
+        }
+      }
+    } else {
+      ArrayList<Object> list = new ArrayList<>();
+      map.put(classID, list);
+    }
+
+    map.get(classID).add(this);
+    String id = String.valueOf(classID) + "_" + String.valueOf(counter);
+    
+    json_object.put("id", String.valueOf(id));  
+    json_object.put("type", "Class3");
+    JSONArray values = new JSONArray();
+    
     json_object.put("id", String.valueOf(id));
     json_object.put("type", "Class2");
-    JSONObject values = new JSONObject();
-    values.put("b1", String.valueOf(b1));
-    values.put("c1", String.valueOf(c1));
-    values.put("s1", String.valueOf(s1));
-    values.put("l1", String.valueOf(l1));
-    values.put("f1", String.valueOf(f1));
-    values.put("d1", String.valueOf(d1));
+    
+    values.put(new JSONObject().put("b1", String.valueOf(b1)));
+    values.put(new JSONObject().put("c1", String.valueOf(c1)));
+    values.put(new JSONObject().put("s1", String.valueOf(s1)));
+    values.put(new JSONObject().put("l1", String.valueOf(l1)));
+    values.put(new JSONObject().put("f1", String.valueOf(f1)));
+    values.put(new JSONObject().put("d1", String.valueOf(d1)));
+    
     json_object.put("values", values);
-
     return json_object;
   }                     
 }

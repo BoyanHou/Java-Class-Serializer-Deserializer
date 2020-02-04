@@ -1,0 +1,55 @@
+package edu.duke.ece651.classbuilder;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
+public class Class3 {
+  Class4 c4;
+
+  JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
+    String className = "Class3";
+    int classID = className.hashCode();
+    
+    JSONObject json_object = new JSONObject();
+
+    int counter = 0;
+    
+    if (map.containsKey(classID)) {
+      ArrayList<Object> objectList = map.get(classID);
+      for (counter = 0; counter < objectList.size(); counter++) {
+        if (objectList.get(counter) == this) {
+          String id = String.valueOf(classID) + "_" + String.valueOf(counter);
+          json_object.put("ref", id);
+          return json_object;
+        }
+      }
+    } else {
+      ArrayList<Object> list = new ArrayList<>();
+      map.put(classID, list);
+    }
+
+    map.get(classID).add(this);
+    String id = String.valueOf(classID) + "_" + String.valueOf(counter);
+    
+    json_object.put("id", String.valueOf(id));  
+    json_object.put("type", "Class3");
+    JSONArray values = new JSONArray();
+    
+    values.put(c4.toJSON(map));
+    json_object.put("values",values);
+    
+    return json_object;
+  }
+
+  Class4 getC4() {
+    return c4;
+  }
+
+  void setC4(Class4 x) {
+    c4 = x;
+  }
+}

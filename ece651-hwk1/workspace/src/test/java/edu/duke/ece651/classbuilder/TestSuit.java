@@ -45,8 +45,8 @@ public class TestSuit {
     c2.setD1(dv);
     assertEquals(dv, c2.getD1());
 
-    JSONObject jo = c1.toJSON(1);
-    JSONObject jo2 = c2.toJSON(2);
+    JSONObject jo = c1.toJSON();
+    JSONObject jo2 = c2.toJSON();
             
     Class1 c1_ds = Deserializer.readClass1(jo);
     assertEquals(c1.getI1(), c1_ds.getI1());
