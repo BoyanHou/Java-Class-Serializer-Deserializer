@@ -64,7 +64,23 @@ public class TestSuit {
     assertEquals(c2.getL1(), c2_ds.getL1());
     assertEquals(c2.getF1(), c2_ds.getF1());
     assertEquals(c2.getD1(), c2_ds.getD1());
-  }
-   
 
+    Class3 c3 = new Class3();
+    Class4 c4 = new Class4();
+    c3.setC4(c4);
+    c4.setC3(c3);
+
+    assertEquals(c3, c3.getC4().getC3());
+    assertEquals(c4, c4.getC3().getC4());
+
+    JSONObject c3JSON = c3.toJSON();
+    JSONObject c4JSON = c4.toJSON();
+
+    
+    Class3 c3_ds = Deserializer.readClass3(c3JSON);
+    assertEquals(c3_ds, c3_ds.getC4().getC3());
+
+    Class4 c4_ds = Deserializer.readClass4(c4JSON);
+    assertEquals(c4_ds, c4_ds.getC3().getC4());
+  }
 }

@@ -44,7 +44,7 @@ public class Class3 {
     json_object.put("type", "Class3");
     JSONArray values = new JSONArray();
     
-    values.put(c4.toJSON(map));
+    values.put(new JSONObject().put("c4", c4.toJSON(map)));
     json_object.put("values",values);
     
     return json_object;
