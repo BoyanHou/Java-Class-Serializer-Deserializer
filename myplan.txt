@@ -6,7 +6,7 @@ Actual Delivery: 2/3/2020 Mon 10:20pm
 Commit ID: 6ca6b6cc97169dbff67a84a4778d5df6cee6c040
 Comments: A little ahead of schedule because of the fact that JSON read/write is not as hard as I orginally thought
 
-Task:  add support for custom classes and arrays for hand-written serializer and deserializer; no cycles in class dependency graph here
+Task:  add support for custom classes, with support for cycles
 Estimated Time:  2 hours
 Target Deadline:  2/4/2020 12:00pm
 Actual Time:
@@ -15,14 +15,13 @@ Commit ID:
 Comments:
 
 
-Task:  figure out and add support for cycles in class dependency graph
+Task:  add support for 1-D array
 Estimated Time:  2 hours
-Target Deadline:  2/4/2020 3:00pm
+Target Deadline:  2/4/2020 7:00pm
 Actual Time:
 Actual Delivery:
 Commit ID:
 Comments:
-
 
 Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them 
 Estimated Time:  5 hours
