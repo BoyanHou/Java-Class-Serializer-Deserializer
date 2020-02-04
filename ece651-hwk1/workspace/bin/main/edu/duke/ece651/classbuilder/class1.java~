@@ -1,0 +1,13 @@
+package edu.duke.ece651.classbuilder;
+
+public class class1 {
+  int i1;
+  int i2;
+  int i3;
+  boolean b1;
+  boolean b2;
+  boolean b3;
+  String s1;
+  String s2;
+  String s3;
+}

@@ -80,6 +80,12 @@ public class Deserializer {
     JSONArray values = js.getJSONArray("values");
     // for non-primitive&String
     class3.setC4(readClass4(values.getJSONObject(0).getJSONObject("c4"), map));
+    // for list: int
+    for (int i = 0; i < values.getJSONObject(1).getJSONArray("list").length(); i++) {
+      int element = values.getJSONObject(1).getJSONArray("list").getInt(i);
+      class3.addList(element);
+    }
+    
     return class3;
   }
 
@@ -100,6 +106,12 @@ public class Deserializer {
     JSONArray values = js.getJSONArray("values");
     // for non-primitive&String
     class4.setC3(readClass3(values.getJSONObject(0).getJSONObject("c3"), map));
+    // for list: char
+    for (int i = 0; i < values.getJSONObject(1).getJSONArray("chars").length(); i++) {
+      String element = values.getJSONObject(1).getJSONArray("chars").getString(i);
+      class4.addChars(element.charAt(0));
+    }
+    
     return class4;
   }
 }

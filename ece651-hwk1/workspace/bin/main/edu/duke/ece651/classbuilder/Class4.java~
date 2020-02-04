@@ -8,20 +8,9 @@ import org.json.JSONObject;
 
 
 public class Class4 {
-  private Class3 c3;
-  private char ch1;
-  private ArrayList<Character> chars;
+  Class3 c3;
 
-  Class4() {
-    chars = new ArrayList<>();
-  }
-  
-  public JSONObject toJSON() {
-    HashMap<Integer, ArrayList<Object>> map = new HashMap<>();
-    return toJSON(map);
-  }
-  
-  public JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
+  JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
     String className = "Class4";
     int classID = className.hashCode();
     
@@ -49,15 +38,8 @@ public class Class4 {
     json_object.put("id", String.valueOf(id));  
     json_object.put("type", "Class4");
     JSONArray values = new JSONArray();
-    values.put(new JSONObject().put("c3", c3.toJSON(map)));
-
-    JSONArray list_JSONArray = new JSONArray();
-    for (char element : chars) {
-      list_JSONArray.put(String.valueOf(element));
-    }
-    values.put(new JSONObject().put("chars", list_JSONArray));
-   
-
+    
+    values.put(c3.toJSON(map));
     json_object.put("values", values);
     return json_object;
   }
@@ -68,29 +50,5 @@ public class Class4 {
 
   void setC3(Class3 x) {
     c3 = x;
-  }
-
-  char getCh1() {
-    return ch1;
-  }
-
-  void setCh1(char x) {
-    ch1 = x;
-  }
-
-  int numChars() {
-    return chars.size();
-  }
-  
-  void addChars(char x) {
-    chars.add(x);
-  }
-
-  char getChars(int index) {
-    return chars.get(index);
-  }
-
-  void setList(int index, char x) {
-    chars.set(index, x);
   }
 }

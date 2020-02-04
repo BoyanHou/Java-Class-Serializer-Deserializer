@@ -67,9 +67,16 @@ public class TestSuit {
 
     Class3 c3 = new Class3();
     Class4 c4 = new Class4();
+    
     c3.setC4(c4);
     c4.setC3(c3);
-
+    c3.addList(1);
+    c3.addList(55);
+    c3.addList(100);
+    c4.addChars('z');
+    c4.addChars('x');
+    c4.addChars('o');
+    
     assertEquals(c3, c3.getC4().getC3());
     assertEquals(c4, c4.getC3().getC4());
 
@@ -79,8 +86,39 @@ public class TestSuit {
     
     Class3 c3_ds = Deserializer.readClass3(c3JSON);
     assertEquals(c3_ds, c3_ds.getC4().getC3());
-
+    assertEquals(c3_ds.getList(0), 1);
+    assertEquals(c3_ds.getList(1), 55);
+    assertEquals(c3_ds.getList(2), 100);
+    
     Class4 c4_ds = Deserializer.readClass4(c4JSON);
+    // class inter-dependency: c3 <->c4 tests
     assertEquals(c4_ds, c4_ds.getC3().getC4());
+    // char list "chars" in c4 test
+    assertEquals(c4_ds.getChars(0), 'z');
+    assertEquals(c4_ds.getChars(1), 'x');
+    assertEquals(c4_ds.getChars(2), 'o');
+
+    // ser-deser imdeponent test
+    Deserializer.readClass3(c3.toJSON()).toJSON().equals(c3.toJSON());
+    
+    Class3 c3_a = new Class3();
+    Class4 c4_a = new Class4();
+    Class3 c3_b = new Class3();
+    Class4 c4_b = new Class4();
+    Class3 c3_c = new Class3();
+    Class4 c4_c = new Class4();
+    
+    c3_a.setC4(c4_a);
+    c4_a.setC3(c3_b);
+    c3_b.setC4(c4_b);
+    c4_b.setC3(c3_c);
+    c3_c.setC4(c4_c);
+    c4_c.setC3(c3_a);
+    
+    JSONObject c3_a_JSON = c3_a.toJSON();
+
+    Class3 c3_a_ds = Deserializer.readClass3(c3_a_JSON);
+    assertEquals(c3_a_ds,c3_a_ds.getC4().getC3().getC4().getC3().getC4().getC3());
+    
   }
 }
