@@ -1,0 +1,92 @@
+package edu.duke.ece651.classbuilder;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class ClassBuilderHelper {
+
+  private HashMap<String, JSONObject> class_map;
+  private String package_name;
+  private String language_suffix;
+  private CodingEngine engine;
+  
+  public ClassBuilder(String input) {
+    JSONObject JSONObj = new JSONObject(input);
+    package_name = getPackageName(JSONObj);
+    class_map = getClassMap(JSONObj);
+    language_suffix = ".java";
+    coding_engine = new JavaCodingEngine();
+  }
+
+  // get package name
+  private String getPackageName(JSONObject JSONObj) {
+    if (JSONObj.has("package")) {
+      return JSONObj.getString("package");
+    } else {
+      return "";
+    }
+  }
+
+  // get classes into a map
+  private HashMap<String, JSONObject> getClassMap(JSONObject JSONObj) {
+    HashMap<String, JSONObject> classMap = new HashMap<>();
+    for (int i = 0; i < JSONObj.getJSONArray("classes").length(); i++) {
+      JSONObject cl = JSONObj.getJSONArray("classes").getJSONObject(i);
+      String cn = cl.getString("name");
+      class_map.put(cn, cl) ;
+    }
+    return class_map;
+  }
+    
+  //public ClassBuilder (InputStream input);
+    
+  public Collection<String> getClassNames() {
+    Collection<String> nameList = new ArrayList<>();
+    for (String className: class_map.keySet() ) {
+      nameList.add(className);
+    }
+    return nameList;
+  }
+    
+  public String getSourceCode(String class_name) {
+    return JavaCodingEngine.getJavaClassCode(package_name, class_name, class_map);
+  }
+  
+  
+  public void createAllClasses(String basePath) {
+    // create the Deserializer class
+    String deserializer_code = getSourceCode("Deserializer");
+    writeStringToFile(deserializer_code, basePath, "Deserializer" + language_suffix);
+    
+    // create all other classes
+    for (String class_name : class_map.keySet()) {
+      String ordinary_class_code = getSourceCode(class_name);
+      writeStringToFile(ordinary_class_code, basePath, class_name + language_suffix);
+    }
+  }
+
+  private void writeStringToFile(String content, String path, String filename) {    
+    try {
+      // if the path does not exist: create that path
+      File dirs = new File(path);
+      if (!dirs.exists()) {
+        dirs.mkdirs();
+      }
+      // create output stream and overwrite to a designated filename
+      FileOutputStream out = new FileOutputStream(path+filename, false);
+      out.write(content.getBytes());
+      out.close();
+    }
+    catch (IOException exception) {
+      exception.printStackTrace();
+    }
+  }
+}

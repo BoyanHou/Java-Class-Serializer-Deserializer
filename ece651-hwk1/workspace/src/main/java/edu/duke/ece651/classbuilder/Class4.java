@@ -8,11 +8,13 @@ import org.json.JSONObject;
 
 
 public class Class4 {
+  // field declarations
   private Class3 c3;
   private char ch1;
   private ArrayList<Character> chars;
 
-  Class4() {
+  // class initializer
+  public Class4() {
     chars = new ArrayList<>();
   }
   
@@ -28,7 +30,6 @@ public class Class4 {
     JSONObject json_object = new JSONObject();
 
     int counter = 0;
-    
     if (map.containsKey(classID)) {
       ArrayList<Object> objectList = map.get(classID);
       for (counter = 0; counter < objectList.size(); counter++) {
@@ -48,16 +49,22 @@ public class Class4 {
     
     json_object.put("id", String.valueOf(id));  
     json_object.put("type", "Class4");
-    JSONArray values = new JSONArray();
-    values.put(new JSONObject().put("c3", c3.toJSON(map)));
 
+    JSONArray values = new JSONArray();
+
+    // start to put into values
+    // object type
+    if (c3 != null) { 
+      values.put(new JSONObject().put("c3", c3.toJSON(map)));
+    }
+    // array type
     JSONArray list_JSONArray = new JSONArray();
     for (char element : chars) {
       list_JSONArray.put(String.valueOf(element));
     }
     values.put(new JSONObject().put("chars", list_JSONArray));
-   
 
+    // common
     json_object.put("values", values);
     return json_object;
   }
