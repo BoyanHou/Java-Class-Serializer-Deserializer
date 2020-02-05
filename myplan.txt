@@ -6,27 +6,27 @@ Actual Delivery: 2/3/2020 Mon 10:20pm
 Commit ID: 6ca6b6cc97169dbff67a84a4778d5df6cee6c040
 Comments: A little ahead of schedule because of the fact that JSON read/write is not as hard as I orginally thought
 
-Task:  add support for custom classes, with support for cycles
-Estimated Time:  2 hours
-Target Deadline:  2/4/2020 12:00pm
-Actual Time:
-Actual Delivery:
-Commit ID:
-Comments:
-
-
-Task:  add support for 1-D array
-Estimated Time:  2 hours
+Task:  add support for custom classes, with support for cycles; add support for 1-D array
+Estimated Time:  4 hours
 Target Deadline:  2/4/2020 7:00pm
+Actual Time: 6 hours
+Actual Delivery: 2/4/2020 9:30 pm
+Commit ID: a468830023c7bfa724ceddf6badff8387fa2c20d
+Comments: all-in-all things go as planned, despite some unexpected debugging slowing down the pace
+
+Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them: first figure out the package pattern and try to generate some .java files with only the required header imports and class names 
+Estimated Time:  2 hours
+Target Deadline:  2/4/2020 11:30pm
 Actual Time:
 Actual Delivery:
 Commit ID:
 Comments:
 
-Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them 
-Estimated Time:  5 hours
-Target Deadline:  2/4/2020 12:00pm
+Task:  add in the contents for the .java files with all details 
+Estimated Time:  4 hours
+Target Deadline:  2/5/2020 3:00pm
 Actual Time:
 Actual Delivery:
 Commit ID:
 Comments:
+
