@@ -68,6 +68,7 @@ public class TestSuit {
     Class3 c3 = new Class3();
     Class4 c4 = new Class4();
     
+
     c3.setC4(c4);
     c4.setC3(c3);
     c3.addList(1);
@@ -76,6 +77,13 @@ public class TestSuit {
     c4.addChars('z');
     c4.addChars('x');
     c4.addChars('o');
+
+    // c3 list test: c4s Class4 list
+    c3.addC4s(c4);
+    c3.addC4s(new Class4());
+    c3.setC4s(1, c4);
+    assertEquals(c3.getC4s(0), c3.getC4s(1));
+    assertEquals(c3.numC4s(), 2);
     
     assertEquals(c3, c3.getC4().getC3());
     assertEquals(c4, c4.getC3().getC4());
@@ -89,6 +97,11 @@ public class TestSuit {
     assertEquals(c3_ds.getList(0), 1);
     assertEquals(c3_ds.getList(1), 55);
     assertEquals(c3_ds.getList(2), 100);
+
+    //c3 list test: c4s Class4
+    assertEquals(c3_ds.getC4s(0), c3_ds.getC4s(1));
+    assertEquals(c3_ds.numC4s(), 2);
+    assertEquals(c3_ds.getC4s(0).getC3(), c3_ds);
     
     Class4 c4_ds = Deserializer.readClass4(c4JSON);
     // class inter-dependency: c3 <->c4 tests

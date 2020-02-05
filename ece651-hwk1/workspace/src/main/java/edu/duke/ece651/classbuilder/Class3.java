@@ -11,9 +11,11 @@ public class Class3 {
   private Class4 c4;
   private int i1;
   private ArrayList<Integer> list;
-
+  private ArrayList<Class4> c4s;
+  
   Class3() {
     list = new ArrayList<>();
+    c4s = new ArrayList<>();
   }
   
   public JSONObject toJSON() {
@@ -53,11 +55,20 @@ public class Class3 {
 
     values.put(new JSONObject().put("c4", c4.toJSON(map)));
 
+    // for primitive list
     JSONArray list_JSONArray = new JSONArray();
     for (int element : list) {
       list_JSONArray.put(element);
     }
     values.put(new JSONObject().put("list", list_JSONArray));
+
+    // for object list
+    JSONArray c4s_JSONArray = new JSONArray();
+    for (Class4 element : c4s) {
+      c4s_JSONArray.put(element.toJSON(map));
+    }
+    values.put(new JSONObject().put("c4s", c4s_JSONArray));
+
     
     json_object.put("values",values);
     
@@ -94,5 +105,21 @@ public class Class3 {
 
   void setList(int index, int x) {
     list.set(index, x);
+  }
+
+  int numC4s() {
+    return c4s.size();
+  }
+  
+  void addC4s(Class4 x) {
+    c4s.add(x);
+  }
+
+  Class4 getC4s(int index) {
+    return c4s.get(index);
+  }
+
+  void setC4s(int index, Class4 x) {
+    c4s.set(index, x);
   }
 }

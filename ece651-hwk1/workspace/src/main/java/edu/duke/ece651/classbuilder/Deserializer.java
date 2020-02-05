@@ -85,6 +85,11 @@ public class Deserializer {
       int element = values.getJSONObject(1).getJSONArray("list").getInt(i);
       class3.addList(element);
     }
+    // for object list--c4s: Class4
+    for (int i = 0; i < values.getJSONObject(2).getJSONArray("c4s").length(); i++) {
+      JSONObject element = values.getJSONObject(2).getJSONArray("c4s").getJSONObject(i);
+      class3.addC4s(readClass4(element, map));
+    }    
     
     return class3;
   }
