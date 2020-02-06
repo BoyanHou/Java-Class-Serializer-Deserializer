@@ -54,7 +54,7 @@ public class Class3 {
     JSONArray values = new JSONArray();
 
     // for object type
-    values.put(new JSONObject().put("c4", c4.toJSON(map)));
+    values.put(new JSONObject().put("c4", c4 == null ? JSONObject.NULL : c4.toJSON(map)));
 
     // for primitive list
     JSONArray list_JSONArray = new JSONArray();
@@ -66,7 +66,7 @@ public class Class3 {
     // for object list
     JSONArray c4s_JSONArray = new JSONArray();
     for (Class4 element : c4s) {
-      c4s_JSONArray.put(element == null ? null : element.toJSON(map));
+      c4s_JSONArray.put(element == null ? JSONObject.NULL : element.toJSON(map));
     }
     values.put(new JSONObject().put("c4s", c4s_JSONArray));
 

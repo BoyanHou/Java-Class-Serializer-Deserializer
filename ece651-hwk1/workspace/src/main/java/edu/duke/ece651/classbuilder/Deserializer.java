@@ -17,6 +17,9 @@ public class Deserializer {
   }
 
   public static Class1 readClass1(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
+    if (js == JSONObject.NULL) {
+      return null;
+    }
     if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class1)(map.get(key));
@@ -45,6 +48,9 @@ public class Deserializer {
   }
 
   public static Class2 readClass2(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
+    if (js == JSONObject.NULL) {
+      return null;
+    }
     if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class2)(map.get(key));
@@ -69,7 +75,11 @@ public class Deserializer {
     HashMap<Integer, Object> map = new HashMap<>();
     return readClass3(js, map);
   }
-  public static Class3 readClass3(JSONObject js, HashMap<Integer, Object>map) throws JSONException {
+
+  public static Class3 readClass3(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
+    if (js == JSONObject.NULL) {
+      return null;
+    }
     if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class3)(map.get(key));
@@ -100,7 +110,11 @@ public class Deserializer {
     HashMap<Integer, Object> map = new HashMap<>();
     return readClass4(js, map);
   }
-  public static Class4 readClass4(JSONObject js, HashMap<Integer, Object>map) throws JSONException {
+
+  public static Class4 readClass4(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
+    if (js == JSONObject.NULL) {
+      return null;
+    }
     if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class4)(map.get(key));

@@ -6,11 +6,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Ylass3 {
+	private Ylass4 c4;
 	private int i1;
 	private ArrayList<Integer> list;
+	private ArrayList<Ylass4> c4s;
 
 	public Ylass3() {
 		list = new ArrayList<>();
+		c4s = new ArrayList<>();
 	}
 
 	public JSONObject toJSON() {
@@ -47,17 +50,31 @@ public class Ylass3 {
 		JSONArray values = new JSONArray();
 
 		// start to put into values
+		values.put(new JSONObject().put("c4", c4 == null ? JSONObject.NULL : c4.toJSON(map)));
 		values.put(new JSONObject().put("i1", String.valueOf(i1)));
 		JSONArray list_JSONArray = new JSONArray();
 		for (int element : list) {
 			list_JSONArray.put(element);
 		}
 		values.put(new JSONObject().put("list", list_JSONArray));
+		JSONArray c4s_JSONArray = new JSONArray();
+		for (Ylass4 element : c4s) {
+			c4s_JSONArray.put(element == null ? JSONObject.NULL : element.toJSON(map));
+		}
+		values.put(new JSONObject().put("c4s", c4s_JSONArray));
 		json_object.put("values",values);
 
 		return json_object;
 	}
 
+
+	public Ylass4 getC4() {
+		return c4;
+	}
+
+	public void setC4(Ylass4 x) {
+		c4 = x;
+	}
 
 	public int getI1() {
 		return i1;
@@ -80,6 +97,22 @@ public class Ylass3 {
 
 	void setList(int index, int x) {
 		list.set(index, x);
+	}
+
+	int numC4s() {
+		return c4s.size();
+	}
+
+	void addC4s(Ylass4 x) {
+		c4s.add(x);
+	}
+
+	Ylass4 getC4s(int index) {
+		return c4s.get(index);
+	}
+
+	void setC4s(int index, Ylass4 x) {
+		c4s.set(index, x);
 	}
 
 

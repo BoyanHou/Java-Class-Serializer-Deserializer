@@ -54,9 +54,11 @@ public class Class4 {
 
     // start to put into values
     // object type
-    if (c3 != null) { 
-      values.put(new JSONObject().put("c3", c3.toJSON(map)));
-    }
+    
+    values.put(new JSONObject().put("c3", c3 == null ? JSONObject.NULL : c3.toJSON(map)));
+    
+    
+    
     // array type
     JSONArray list_JSONArray = new JSONArray();
     for (char element : chars) {

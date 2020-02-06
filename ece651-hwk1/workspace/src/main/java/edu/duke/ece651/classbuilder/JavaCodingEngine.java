@@ -55,7 +55,11 @@ public class JavaCodingEngine implements CodingEngine{
       code += "\t\t" + "return read" + upperFirstChar(class_name, false) + "(js, map);\n";
       code += "\t" + "}";
       code += "\n";
-      code += "\t" + "public static " + class_name + " read" + upperFirstChar(class_name, false) + "(JSONObject js, HashMap<Integer, Object> map) throws JSONException {\n";
+      code += "\t" + "public static " + class_name + " read" + upperFirstChar(class_name, false)
+          + "(JSONObject js, HashMap<Integer, Object> map) throws JSONException {\n";
+      code += "\t\t" + "if (js == JSONObject.NULL) {\n";
+      code += "\t\t\t" + "return null;\n";
+      code += "\t\t" + "}\n";
       code += "\t\t" + "if (js.has(\"ref\")) {\n";
       code += "\t\t\t" + "int key = js.getString(\"ref\").hashCode();\n";
       code += "\t\t\t" + "return (" + class_name + ")(map.get(key));\n";
@@ -155,7 +159,7 @@ public class JavaCodingEngine implements CodingEngine{
         if (primitives.contains(element_type)) { // primitive & String list
           toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element);\n";
         } else { // object classes list
-          toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element == null ? null : element.toJSON(map));\n";
+          toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element == null ? JSONObject.NULL : element.toJSON(map));\n";
         }
         toJSON_code += "\t\t" + "}\n";
         toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name
@@ -168,7 +172,7 @@ public class JavaCodingEngine implements CodingEngine{
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // add
-        getter_setter_code += "\t" + "void add" + upperFirstChar(field_name, false) + "(int x) {\n";
+        getter_setter_code += "\t" + "void add" + upperFirstChar(field_name, false) + "(" + element_type + " x) {\n";
         getter_setter_code += "\t\t" + field_name + ".add(x);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
@@ -193,8 +197,7 @@ public class JavaCodingEngine implements CodingEngine{
           toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", String.valueOf(" + field_name
               + ")));\n";
         } else { // object type
-          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name
-              + ".toJSON(map)));\n";
+          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name + " == null ? JSONObject.NULL : " + field_name + ".toJSON(map)));\n";
         }  
 
         // getter & setter part
@@ -241,7 +244,7 @@ public class JavaCodingEngine implements CodingEngine{
             + String.valueOf(counter) + ").getString(\"" + field_name + "\").charAt(0));\n";
       }
     } else { // object class type
-      varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "(read" + upperFirstChar(element_type, false) + "(values.getJSONObject(" + String.valueOf(counter) + ").getJSONObject(\"" + field_name + "\"), map));/n";
+      varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "(read" + upperFirstChar(element_type, false) + "(values.getJSONObject(" + String.valueOf(counter) + ").getJSONObject(\"" + field_name + "\"), map));\n";
     }
     return varCreater;
   }
@@ -258,7 +261,7 @@ public class JavaCodingEngine implements CodingEngine{
           + ").getJSONArray(\"" + field_name + "\")" + ".get" + upperFirstChar(element_type, true) + "(i);\n";
       } else { // char type
         ans += "\t\t\t" + element_type + " element = values.getJSONObject(" + String.valueOf(counter) + ").getJSONArray(\"" + field_name
-          + "\")" + ".get" + upperFirstChar(element_type, true) + "(i).charAt(0);\n";
+          + "\")" + ".getString(i).charAt(0);\n";
       }
       ans += "\t\t\t" + "obj.add" + upperFirstChar(field_name, false) + "(element);\n";
     } else { // object class type
