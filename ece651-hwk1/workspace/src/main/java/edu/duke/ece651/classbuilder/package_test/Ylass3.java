@@ -1,4 +1,4 @@
-l1.l2.l3.package2;
+package edu.duke.ece651.classbuilder.package_test;
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class Ylass3 {
 		values.put(new JSONObject().put("i1", String.valueOf(i1)));
 		JSONArray list_JSONArray = new JSONArray();
 		for (int element : list) {
-			list_JSONArray.put(element);
+			list_JSONArray.put(String.valueOf(element));
 		}
 		values.put(new JSONObject().put("list", list_JSONArray));
 		JSONArray c4s_JSONArray = new JSONArray();
@@ -83,35 +83,35 @@ public class Ylass3 {
 	public void setI1(int x) {
 		i1 = x;
 	}
-	int numList() {
+	public int numList() {
 		return list.size();
 	}
 
-	void addList(int x) {
+	public void addList(int x) {
 		list.add(x);
 	}
 
-	int getList(int index) {
+	public int getList(int index) {
 		return list.get(index);
 	}
 
-	void setList(int index, int x) {
+	public void setList(int index, int x) {
 		list.set(index, x);
 	}
 
-	int numC4s() {
+	public int numC4s() {
 		return c4s.size();
 	}
 
-	void addC4s(Ylass4 x) {
+	public void addC4s(Ylass4 x) {
 		c4s.add(x);
 	}
 
-	Ylass4 getC4s(int index) {
+	public Ylass4 getC4s(int index) {
 		return c4s.get(index);
 	}
 
-	void setC4s(int index, Ylass4 x) {
+	public void setC4s(int index, Ylass4 x) {
 		c4s.set(index, x);
 	}
 

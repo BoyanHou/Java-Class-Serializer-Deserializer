@@ -1,4 +1,4 @@
-
+package edu.duke.ece651.classbuilder.package_test;
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,7 +54,7 @@ public class Deserializer {
 		JSONArray values = js.getJSONArray("values");
 
 		obj.setC4(readYlass4(values.getJSONObject(0).getJSONObject("c4"), map));
-		obj.setI1(Int.valueOf(values.getJSONObject(1).getString("i1")));
+		obj.setI1(Integer.valueOf(values.getJSONObject(1).getString("i1")));
 		for (int i = 0; i < values.getJSONObject(2).getJSONArray("list").length(); i++) {
 			int element = values.getJSONObject(2).getJSONArray("list").getInt(i);
 			obj.addList(element);
@@ -111,8 +111,8 @@ public class Deserializer {
 
 		JSONArray values = js.getJSONArray("values");
 
-		obj.setI1(Int.valueOf(values.getJSONObject(0).getString("i1")));
-		obj.setI2(Int.valueOf(values.getJSONObject(1).getString("i2")));
+		obj.setI1(Integer.valueOf(values.getJSONObject(0).getString("i1")));
+		obj.setI2(Integer.valueOf(values.getJSONObject(1).getString("i2")));
 		obj.setB1(Boolean.valueOf(values.getJSONObject(2).getString("b1")));
 		obj.setB2(Boolean.valueOf(values.getJSONObject(3).getString("b2")));
 		obj.setS1(String.valueOf(values.getJSONObject(4).getString("s1")));

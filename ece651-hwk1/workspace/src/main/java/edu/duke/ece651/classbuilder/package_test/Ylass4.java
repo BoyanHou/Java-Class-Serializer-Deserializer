@@ -1,4 +1,4 @@
-l1.l2.l3.package2;
+package edu.duke.ece651.classbuilder.package_test;
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,7 +52,7 @@ public class Ylass4 {
 		values.put(new JSONObject().put("ch1", String.valueOf(ch1)));
 		JSONArray chars_JSONArray = new JSONArray();
 		for (char element : chars) {
-			chars_JSONArray.put(element);
+			chars_JSONArray.put(String.valueOf(element));
 		}
 		values.put(new JSONObject().put("chars", chars_JSONArray));
 		json_object.put("values",values);
@@ -76,19 +76,19 @@ public class Ylass4 {
 	public void setCh1(char x) {
 		ch1 = x;
 	}
-	int numChars() {
+	public int numChars() {
 		return chars.size();
 	}
 
-	void addChars(char x) {
+	public void addChars(char x) {
 		chars.add(x);
 	}
 
-	char getChars(int index) {
+	public char getChars(int index) {
 		return chars.get(index);
 	}
 
-	void setChars(int index, char x) {
+	public void setChars(int index, char x) {
 		chars.set(index, x);
 	}
 

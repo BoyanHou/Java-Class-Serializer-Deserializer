@@ -1,17 +1,19 @@
-l1.l2.l3.package2;
+package2
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Ylass4 {
-	private Ylass3 c3;
-	private char ch1;
-	private ArrayList<Character> chars;
+public class Ylass1 {
+	private int i1;
+	private int i2;
+	private boolean b1;
+	private boolean b2;
+	private String s1;
+	private String s2;
 
-	public Ylass4() {
-		chars = new ArrayList<>();
+	public Ylass1() {
 	}
 
 	public JSONObject toJSON() {
@@ -19,7 +21,7 @@ public class Ylass4 {
 		return toJSON(map);
 	}
 	public JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
-		String className = "Ylass4";
+		String className = "Ylass1";
 		int classID = className.hashCode();
 
 		JSONObject json_object = new JSONObject();
@@ -43,54 +45,69 @@ public class Ylass4 {
 		String id = String.valueOf(classID) + "_" + String.valueOf(counter);
 
 		json_object.put("id", String.valueOf(id));
-		json_object.put("type", "Ylass4");
+		json_object.put("type", "Ylass1");
 
 		JSONArray values = new JSONArray();
 
 		// start to put into values
-		values.put(new JSONObject().put("c3", c3 == null ? JSONObject.NULL : c3.toJSON(map)));
-		values.put(new JSONObject().put("ch1", String.valueOf(ch1)));
-		JSONArray chars_JSONArray = new JSONArray();
-		for (char element : chars) {
-			chars_JSONArray.put(element);
-		}
-		values.put(new JSONObject().put("chars", chars_JSONArray));
+		values.put(new JSONObject().put("i1", String.valueOf(i1)));
+		values.put(new JSONObject().put("i2", String.valueOf(i2)));
+		values.put(new JSONObject().put("b1", String.valueOf(b1)));
+		values.put(new JSONObject().put("b2", String.valueOf(b2)));
+		values.put(new JSONObject().put("s1", String.valueOf(s1)));
+		values.put(new JSONObject().put("s2", String.valueOf(s2)));
 		json_object.put("values",values);
 
 		return json_object;
 	}
 
 
-	public Ylass3 getC3() {
-		return c3;
+	public int getI1() {
+		return i1;
 	}
 
-	public void setC3(Ylass3 x) {
-		c3 = x;
+	public void setI1(int x) {
+		i1 = x;
 	}
 
-	public char getCh1() {
-		return ch1;
+	public int getI2() {
+		return i2;
 	}
 
-	public void setCh1(char x) {
-		ch1 = x;
-	}
-	int numChars() {
-		return chars.size();
+	public void setI2(int x) {
+		i2 = x;
 	}
 
-	void addChars(char x) {
-		chars.add(x);
+	public boolean getB1() {
+		return b1;
 	}
 
-	char getChars(int index) {
-		return chars.get(index);
+	public void setB1(boolean x) {
+		b1 = x;
 	}
 
-	void setChars(int index, char x) {
-		chars.set(index, x);
+	public boolean getB2() {
+		return b2;
 	}
 
+	public void setB2(boolean x) {
+		b2 = x;
+	}
+
+	public String getS1() {
+		return s1;
+	}
+
+	public void setS1(String x) {
+		s1 = x;
+	}
+
+	public String getS2() {
+		return s2;
+	}
+
+	public void setS2(String x) {
+		s2 = x;
+	}
 
 }

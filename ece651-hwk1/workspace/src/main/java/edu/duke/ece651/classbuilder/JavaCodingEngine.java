@@ -157,7 +157,7 @@ public class JavaCodingEngine implements CodingEngine{
         toJSON_code += "\t\t" + "JSONArray " + field_name + "_JSONArray = new JSONArray();\n";
         toJSON_code += "\t\t" + "for (" + element_type + " element : " + field_name + ") {\n";
         if (primitives.contains(element_type)) { // primitive & String list
-          toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element);\n";
+          toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(String.valueOf(element));\n";
         } else { // object classes list
           toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element == null ? JSONObject.NULL : element.toJSON(map));\n";
         }
@@ -167,22 +167,22 @@ public class JavaCodingEngine implements CodingEngine{
 
         // getter & setter part
         // num 
-        getter_setter_code += "\t" + "int num" + upperFirstChar(field_name, false) + "() {\n";
+        getter_setter_code += "\t" + "public int num" + upperFirstChar(field_name, false) + "() {\n";
         getter_setter_code += "\t\t" + "return " + field_name + ".size();\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // add
-        getter_setter_code += "\t" + "void add" + upperFirstChar(field_name, false) + "(" + element_type + " x) {\n";
+        getter_setter_code += "\t" + "public void add" + upperFirstChar(field_name, false) + "(" + element_type + " x) {\n";
         getter_setter_code += "\t\t" + field_name + ".add(x);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // get
-        getter_setter_code += "\t" + element_type + " get" + upperFirstChar(field_name, false) + "(int index) {\n";
+        getter_setter_code += "\t" + "public " + element_type + " get" + upperFirstChar(field_name, false) + "(int index) {\n";
         getter_setter_code += "\t\t" + "return " + field_name + ".get(index);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // set
-        getter_setter_code += "\t" + "void set" + upperFirstChar(field_name, false) + "(int index, " + element_type
+        getter_setter_code += "\t" + "public void set" + upperFirstChar(field_name, false) + "(int index, " + element_type
             + " x) {\n";
         getter_setter_code += "\t\t" + field_name + ".set(index, x);\n";
         getter_setter_code += "\t" + "}\n";
@@ -237,7 +237,7 @@ public class JavaCodingEngine implements CodingEngine{
     if (primitives.contains(element_type)) { // primitive type
       if (!element_type.equals("char") && !element_type.equals("Character")) { // not char type
         varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "("
-            + upperFirstChar(element_type, true) + ".valueOf(values.getJSONObject(" + String.valueOf(counter)
+            + upperFirstChar(toWrapper(element_type), false) + ".valueOf(values.getJSONObject(" + String.valueOf(counter)
             + ").getString(\"" + field_name + "\")));\n";
       } else { // char type
         varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "(" + "values.getJSONObject("

@@ -55,14 +55,14 @@ public class ClassBuilderHelper {
   }
     
   public String getSourceCode(String class_name) {
-    return package_name + "\n" + coding_engine.getOrdinaryClassCode(class_map.get(class_name));
+    return "package " + package_name + ";\n" + coding_engine.getOrdinaryClassCode(class_map.get(class_name));
   }
   
   public void createAllClasses(String basePath) {
     // create the Deserializer class
-    String deserializer_code = package_name + "\n" + coding_engine.getDeserializerCode(class_map);
+    String deserializer_code = "package " + package_name + ";\n" + coding_engine.getDeserializerCode(class_map);
     writeStringToFile(deserializer_code,
-                      basePath + "/" + package_name + "/",
+                      basePath + "/" + package_name.replace('.', '/') + "/",
                       "Deserializer" + language_suffix
                       );
     
@@ -70,7 +70,7 @@ public class ClassBuilderHelper {
     for (String class_name : class_map.keySet()) {
       String ordinary_class_code = getSourceCode(class_name);
       writeStringToFile(ordinary_class_code,
-                        basePath + "/" + package_name + "/",
+                        basePath + "/" + package_name.replace('.', '/') + "/",
                         class_name + language_suffix
                         );
     }

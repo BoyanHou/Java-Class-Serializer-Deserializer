@@ -1,17 +1,19 @@
-l1.l2.l3.package2;
+package edu.duke.ece651.classbuilder.package_test;
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Ylass4 {
-	private Ylass3 c3;
-	private char ch1;
-	private ArrayList<Character> chars;
+public class Ylass2 {
+	private byte b1;
+	private char c1;
+	private short s1;
+	private long l1;
+	private float f1;
+	private double d1;
 
-	public Ylass4() {
-		chars = new ArrayList<>();
+	public Ylass2() {
 	}
 
 	public JSONObject toJSON() {
@@ -19,7 +21,7 @@ public class Ylass4 {
 		return toJSON(map);
 	}
 	public JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
-		String className = "Ylass4";
+		String className = "Ylass2";
 		int classID = className.hashCode();
 
 		JSONObject json_object = new JSONObject();
@@ -43,54 +45,69 @@ public class Ylass4 {
 		String id = String.valueOf(classID) + "_" + String.valueOf(counter);
 
 		json_object.put("id", String.valueOf(id));
-		json_object.put("type", "Ylass4");
+		json_object.put("type", "Ylass2");
 
 		JSONArray values = new JSONArray();
 
 		// start to put into values
-		values.put(new JSONObject().put("c3", c3 == null ? JSONObject.NULL : c3.toJSON(map)));
-		values.put(new JSONObject().put("ch1", String.valueOf(ch1)));
-		JSONArray chars_JSONArray = new JSONArray();
-		for (char element : chars) {
-			chars_JSONArray.put(element);
-		}
-		values.put(new JSONObject().put("chars", chars_JSONArray));
+		values.put(new JSONObject().put("b1", String.valueOf(b1)));
+		values.put(new JSONObject().put("c1", String.valueOf(c1)));
+		values.put(new JSONObject().put("s1", String.valueOf(s1)));
+		values.put(new JSONObject().put("l1", String.valueOf(l1)));
+		values.put(new JSONObject().put("f1", String.valueOf(f1)));
+		values.put(new JSONObject().put("d1", String.valueOf(d1)));
 		json_object.put("values",values);
 
 		return json_object;
 	}
 
 
-	public Ylass3 getC3() {
-		return c3;
+	public byte getB1() {
+		return b1;
 	}
 
-	public void setC3(Ylass3 x) {
-		c3 = x;
+	public void setB1(byte x) {
+		b1 = x;
 	}
 
-	public char getCh1() {
-		return ch1;
+	public char getC1() {
+		return c1;
 	}
 
-	public void setCh1(char x) {
-		ch1 = x;
-	}
-	int numChars() {
-		return chars.size();
+	public void setC1(char x) {
+		c1 = x;
 	}
 
-	void addChars(char x) {
-		chars.add(x);
+	public short getS1() {
+		return s1;
 	}
 
-	char getChars(int index) {
-		return chars.get(index);
+	public void setS1(short x) {
+		s1 = x;
 	}
 
-	void setChars(int index, char x) {
-		chars.set(index, x);
+	public long getL1() {
+		return l1;
 	}
 
+	public void setL1(long x) {
+		l1 = x;
+	}
+
+	public float getF1() {
+		return f1;
+	}
+
+	public void setF1(float x) {
+		f1 = x;
+	}
+
+	public double getD1() {
+		return d1;
+	}
+
+	public void setD1(double x) {
+		d1 = x;
+	}
 
 }

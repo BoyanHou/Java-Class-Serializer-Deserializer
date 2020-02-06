@@ -1,19 +1,19 @@
-l1.l2.l3.package2;
+package2
 import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Ylass1 {
+public class Ylass3 {
+	private Ylass4 c4;
 	private int i1;
-	private int i2;
-	private boolean b1;
-	private boolean b2;
-	private String s1;
-	private String s2;
+	private ArrayList<Integer> list;
+	private ArrayList<Ylass4> c4s;
 
-	public Ylass1() {
+	public Ylass3() {
+		list = new ArrayList<>();
+		c4s = new ArrayList<>();
 	}
 
 	public JSONObject toJSON() {
@@ -21,7 +21,7 @@ public class Ylass1 {
 		return toJSON(map);
 	}
 	public JSONObject toJSON(HashMap<Integer, ArrayList<Object>> map) {
-		String className = "Ylass1";
+		String className = "Ylass3";
 		int classID = className.hashCode();
 
 		JSONObject json_object = new JSONObject();
@@ -45,22 +45,36 @@ public class Ylass1 {
 		String id = String.valueOf(classID) + "_" + String.valueOf(counter);
 
 		json_object.put("id", String.valueOf(id));
-		json_object.put("type", "Ylass1");
+		json_object.put("type", "Ylass3");
 
 		JSONArray values = new JSONArray();
 
 		// start to put into values
+		values.put(new JSONObject().put("c4", c4 == null ? JSONObject.NULL : c4.toJSON(map)));
 		values.put(new JSONObject().put("i1", String.valueOf(i1)));
-		values.put(new JSONObject().put("i2", String.valueOf(i2)));
-		values.put(new JSONObject().put("b1", String.valueOf(b1)));
-		values.put(new JSONObject().put("b2", String.valueOf(b2)));
-		values.put(new JSONObject().put("s1", String.valueOf(s1)));
-		values.put(new JSONObject().put("s2", String.valueOf(s2)));
+		JSONArray list_JSONArray = new JSONArray();
+		for (int element : list) {
+			list_JSONArray.put(element);
+		}
+		values.put(new JSONObject().put("list", list_JSONArray));
+		JSONArray c4s_JSONArray = new JSONArray();
+		for (Ylass4 element : c4s) {
+			c4s_JSONArray.put(element == null ? JSONObject.NULL : element.toJSON(map));
+		}
+		values.put(new JSONObject().put("c4s", c4s_JSONArray));
 		json_object.put("values",values);
 
 		return json_object;
 	}
 
+
+	public Ylass4 getC4() {
+		return c4;
+	}
+
+	public void setC4(Ylass4 x) {
+		c4 = x;
+	}
 
 	public int getI1() {
 		return i1;
@@ -69,45 +83,37 @@ public class Ylass1 {
 	public void setI1(int x) {
 		i1 = x;
 	}
-
-	public int getI2() {
-		return i2;
+	int numList() {
+		return list.size();
 	}
 
-	public void setI2(int x) {
-		i2 = x;
+	void addList(int x) {
+		list.add(x);
 	}
 
-	public boolean getB1() {
-		return b1;
+	int getList(int index) {
+		return list.get(index);
 	}
 
-	public void setB1(boolean x) {
-		b1 = x;
+	void setList(int index, int x) {
+		list.set(index, x);
 	}
 
-	public boolean getB2() {
-		return b2;
+	int numC4s() {
+		return c4s.size();
 	}
 
-	public void setB2(boolean x) {
-		b2 = x;
+	void addC4s(Ylass4 x) {
+		c4s.add(x);
 	}
 
-	public String getS1() {
-		return s1;
+	Ylass4 getC4s(int index) {
+		return c4s.get(index);
 	}
 
-	public void setS1(String x) {
-		s1 = x;
+	void setC4s(int index, Ylass4 x) {
+		c4s.set(index, x);
 	}
 
-	public String getS2() {
-		return s2;
-	}
-
-	public void setS2(String x) {
-		s2 = x;
-	}
 
 }
