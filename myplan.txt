@@ -14,19 +14,26 @@ Actual Delivery: 2/4/2020 9:30 pm
 Commit ID: a468830023c7bfa724ceddf6badff8387fa2c20d
 Comments: all-in-all things go as planned, despite some unexpected debugging slowing down the pace
 
-Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them: first figure out the package pattern and try to generate some .java files with only the required header imports and class names 
-Estimated Time:  2 hours
-Target Deadline:  2/4/2020 11:30pm
-Actual Time:
-Actual Delivery:
-Commit ID:
-Comments:
-
-Task:  add in the contents for the .java files with all details 
+Task:  observe the pattern of the above hand-written classes, try to write the java code for auto-generating them: first figure out the package pattern and try to generate some .java files with only the required header imports and class names; then add in the contents based on my already hand written code
 Estimated Time:  4 hours
-Target Deadline:  2/5/2020 3:00pm
-Actual Time:
+Target Deadline:  2/4/2020 11:30pm
+Actual Time: 8 hours
+Actual Delivery:  2/5/2020 12:00pm
+Commit ID: commit 508fa95b57e44c3c94fe392c871a9613820b5d70
+Comments: This is the most under-estimated part in this project. Writing code to generate code is probably one of the most tedious thing in the world. I had to write the strings character by character; to respect the D.R.Y. rule, I had to add some helper functions to help generate strings, which make the work even harder because the strings had to sometimes be out of order for the sake of using the helper functions. However, I do benefit from carefully formatting the generated codes using \t and \n's -- this makes the code I generated and the code I hand-written almost itentical and it was very easy to find out where it went wrong. I changed the design to use depenency injection -- inject the "JavaCodeEngine" into the ClassBuilder's interface "CodeEngine" for more langugage flexibility, this took me some extra time but I believe it worths it. 
+
+Task:  first test the code generation, try to generate the exact code that I've written; then test the generated code use the same code that I used to test my hand-written code
+Estimated Time:  3 hours
+Target Deadline:  2/6/2020 3:00pm
+Actual Time: 3 hours
+Actual Delivery: 2/6/2020 5:15 pm
+Commit ID: 5a98bae9399ffc08c067170da769d9fb05a6d9e7
+Comments: There are some minor bugs in the code, which are not so hard to debug since I have the working version of the original hand-written code which I knwo definitely works -- I just compare the two and correct my ClassBuilder bit by bit; I also correct the code about package name parsing and package delaration 
+
+Task: Support stream input (currently the class builder can only take a string); then use the given testing infrastructure to further test the code.
+Estimated Time:  2 hours
+Target Deadline:  2/6/2020 8:30pm
+Actual Time: 
 Actual Delivery:
 Commit ID:
-Comments:
-
+Comments: 
