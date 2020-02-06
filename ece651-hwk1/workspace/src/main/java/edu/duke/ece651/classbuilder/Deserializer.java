@@ -17,24 +17,26 @@ public class Deserializer {
   }
 
   public static Class1 readClass1(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
- if (js.has("ref")) {
+    if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class1)(map.get(key));
     } 
     
-    Class1 class1 = new Class1();
+    Class1 obj = new Class1();
     int id = js.getString("id").hashCode();
-    map.put(id, class1);
+    map.put(id, obj);
     
     JSONArray values = js.getJSONArray("values");
-   
-    class1.setI1(Integer.valueOf(values.getJSONObject(0).getString("i1")));
-    class1.setI2(Integer.valueOf(values.getJSONObject(1).getString("i2")));
-    class1.setB1(Boolean.valueOf(values.getJSONObject(2).getString("b1")));
-    class1.setB2(Boolean.valueOf(values.getJSONObject(3).getString("b2")));
-    class1.setS1(String.valueOf(values.getJSONObject(4).getString("s1")));
-    class1.setS2(String.valueOf(values.getJSONObject(5).getString("s2")));
-    return class1;
+
+    // setting variable values
+    obj.setI1(Integer.valueOf(values.getJSONObject(0).getString("i1")));
+    obj.setI2(Integer.valueOf(values.getJSONObject(1).getString("i2")));
+    obj.setB1(Boolean.valueOf(values.getJSONObject(2).getString("b1")));
+    obj.setB2(Boolean.valueOf(values.getJSONObject(3).getString("b2")));
+    obj.setS1(String.valueOf(values.getJSONObject(4).getString("s1")));
+    obj.setS2(String.valueOf(values.getJSONObject(5).getString("s2")));
+
+    return obj;
   }
 
   public static Class2 readClass2(JSONObject js) throws JSONException {
@@ -43,7 +45,7 @@ public class Deserializer {
   }
 
   public static Class2 readClass2(JSONObject js, HashMap<Integer, Object> map) throws JSONException {
- if (js.has("ref")) {
+    if (js.has("ref")) {
       int key = js.getString("ref").hashCode();
       return (Class2)(map.get(key));
     } 
@@ -73,25 +75,25 @@ public class Deserializer {
       return (Class3)(map.get(key));
     } 
     
-    Class3 class3 = new Class3();
+    Class3 obj = new Class3();
     int id = js.getString("id").hashCode();
-    map.put(id, class3);
+    map.put(id, obj);
     
     JSONArray values = js.getJSONArray("values");
     // for non-primitive&String
-    class3.setC4(readClass4(values.getJSONObject(0).getJSONObject("c4"), map));
+    obj.setC4(readClass4(values.getJSONObject(0).getJSONObject("c4"), map));
     // for list: int
     for (int i = 0; i < values.getJSONObject(1).getJSONArray("list").length(); i++) {
       int element = values.getJSONObject(1).getJSONArray("list").getInt(i);
-      class3.addList(element);
+      obj.addList(element);
     }
     // for object list--c4s: Class4
     for (int i = 0; i < values.getJSONObject(2).getJSONArray("c4s").length(); i++) {
       JSONObject element = values.getJSONObject(2).getJSONArray("c4s").getJSONObject(i);
-      class3.addC4s(readClass4(element, map));
+      obj.addC4s(readClass4(element, map));
     }    
     
-    return class3;
+    return obj;
   }
 
   public static Class4 readClass4(JSONObject js) throws JSONException {
@@ -104,19 +106,19 @@ public class Deserializer {
       return (Class4)(map.get(key));
     } 
     
-    Class4 class4 = new Class4();
+    Class4 obj = new Class4();
     int id = js.getString("id").hashCode();
-    map.put(id, class4);
+    map.put(id, obj);
     
     JSONArray values = js.getJSONArray("values");
     // for non-primitive&String
-    class4.setC3(readClass3(values.getJSONObject(0).getJSONObject("c3"), map));
+    obj.setC3(readClass3(values.getJSONObject(0).getJSONObject("c3"), map));
     // for list: char
     for (int i = 0; i < values.getJSONObject(1).getJSONArray("chars").length(); i++) {
-      String element = values.getJSONObject(1).getJSONArray("chars").getString(i);
-      class4.addChars(element.charAt(0));
+      char element = values.getJSONObject(1).getJSONArray("chars").getString(i).charAt(0);
+      obj.addChars(element);
     }
     
-    return class4;
+    return obj;
   }
 }

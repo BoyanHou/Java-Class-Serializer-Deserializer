@@ -70,7 +70,7 @@ public class Class3 {
     }
     values.put(new JSONObject().put("c4s", c4s_JSONArray));
 
-    //commont
+    //common
     json_object.put("values",values);
     
     return json_object;

@@ -1,0 +1,12 @@
+{ 'classes' :
+  [
+      {'name' : 'Ylass1', 'fields' : [ {'name' : 'i1', 'type' : 'int'},
+                                       {'name' : 'i2', 'type' : 'int' },
+                                       {'name' : 'b1', 'type' : 'boolean'},
+				       {'name' : 'b2', 'type' : 'boolean'},
+ 				       {'name' : 's1', 'type' : 'String'},
+                                       {'name' : 's2', 'type' : 'String'},
+                                     ]
+      }
+  ]
+}

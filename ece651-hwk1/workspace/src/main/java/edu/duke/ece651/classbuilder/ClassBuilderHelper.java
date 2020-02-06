@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ClassBuilderHelper {
@@ -20,8 +17,9 @@ public class ClassBuilderHelper {
   
   public ClassBuilderHelper(String input,
                             String language_suffix,
-                            CodingEngine coding_engine) {
+                           CodingEngine coding_engine) {
     JSONObject JSONObj = new JSONObject(input);
+    class_map = new HashMap<>();
     setPackageName(JSONObj);
     setClassMap(JSONObj);
     this.language_suffix = language_suffix;

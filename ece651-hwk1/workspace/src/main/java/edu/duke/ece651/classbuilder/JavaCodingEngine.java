@@ -44,13 +44,59 @@ public class JavaCodingEngine implements CodingEngine{
   @Override
   public String getDeserializerCode(HashMap<String, JSONObject> class_map) {
     String code = "";
+    code += "public class Deserializer {\n";
+    code += "\n";
+    // construct every class reader for every class
+    for (JSONObject cl : class_map.values()) {
+      String class_name = cl.getString("name");
+      code += "\t" + "public static " + class_name + " read" + upperFirstChar(class_name, false)
+          + "(JSONObject js) throws JSONException {\n";
+      code += "\t\t" + "HashMap<Integer, Object> map = new HashMap<>();\n";
+      code += "\t\t" + "return read" + upperFirstChar(class_name, false) + "(js, map);\n";
+      code += "\t" + "}";
+      code += "\n";
+      code += "\t" + "public static " + class_name + " read" + upperFirstChar(class_name, false) + "(JSONObject js, HashMap<Integer, Object> map) throws JSONException {\n";
+      code += "\t\t" + "if (js.has(\"ref\")) {\n";
+      code += "\t\t\t" + "int key = js.getString(\"ref\").hashCode();\n";
+      code += "\t\t\t" + "return (" + class_name + ")(map.get(key));\n";
+      code += "\t\t" + "}\n";
+      code += "\n";
+      code += "\t\t" + class_name + " obj = new " + class_name + "();\n";
+      code += "\t\t" + "int id = js.getString(\"id\").hashCode();\n";
+      code += "\t\t" + "map.put(id, obj);\n";
+      code += "\n";
+      code += "\t\t" + "JSONArray values = js.getJSONArray(\"values\");\n";
+      code += "\n";
+
+      // set every variable's value;
+      JSONArray fields = cl.getJSONArray("fields");
+      int counter = 0;
+      for (int i = 0; i < fields.length(); i++) {
+        JSONObject field = fields.getJSONObject(i);
+        String field_name = field.getString("name");
+        Object field_type = field.get("type");
+
+        if (field_type instanceof JSONObject) { // this field is an array
+          String element_type = ((JSONObject) field_type).getString("e");
+          code += deserializerArrayCreater(counter, class_name, field_name, element_type);
+        } else { // this field is a single variable
+          code += deserializerVarCreater(counter, class_name, field_name, (String)field_type);
+        }
+        counter++;
+      }
+      
+      code += "\t\t" + "return obj;\n";
+      code += "\t" + "}\n";
+    }
+    // enclosing the whole Deserializer class
+    code += "}";
     return common_headers + "\n" + deserializer_specific_headers + "\n" + code;
   }
   
   @Override
   public String getOrdinaryClassCode(JSONObject cl) {
     String class_name = cl.getString("name");
-    String code = "public class " + class_name + " {";
+    String code = "public class " + class_name + " {\n";
 
     String field_declaration_code = "";
     String constructor_code = "\t" + "public " + class_name + "() {\n";
@@ -94,11 +140,12 @@ public class JavaCodingEngine implements CodingEngine{
       JSONObject field = fields.getJSONObject(i);
       String field_name = field.getString("name");
       Object field_type = field.get("type");
+
       if (field_type instanceof JSONObject) { // this filed is an array
-        String element_type = ((JSONObject)field_type).getString("e");
+        String element_type = ((JSONObject) field_type).getString("e");
         // declaration part
         field_declaration_code += "\t" + "private ArrayList<" + toWrapper(element_type) + "> " + field_name + ";\n";
-        
+
         // constructor part
         constructor_code += "\t\t" + field_name + " = new ArrayList<>();\n";
 
@@ -111,43 +158,157 @@ public class JavaCodingEngine implements CodingEngine{
           toJSON_code += "\t\t\t" + field_name + "_JSONArray.put(element == null ? null : element.toJSON(map));\n";
         }
         toJSON_code += "\t\t" + "}\n";
-        toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name +"_JSONArray));\n";
-        
-        
+        toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name
+            + "_JSONArray));\n";
+
         // getter & setter part
+        // num 
+        getter_setter_code += "\t" + "int num" + upperFirstChar(field_name, false) + "() {\n";
+        getter_setter_code += "\t\t" + "return " + field_name + ".size();\n";
+        getter_setter_code += "\t" + "}\n";
+        getter_setter_code += "\n";
+        // add
+        getter_setter_code += "\t" + "void add" + upperFirstChar(field_name, false) + "(int x) {\n";
+        getter_setter_code += "\t\t" + field_name + ".add(x);\n";
+        getter_setter_code += "\t" + "}\n";
+        getter_setter_code += "\n";
+        // get
+        getter_setter_code += "\t" + element_type + " get" + upperFirstChar(field_name, false) + "(int index) {\n";
+        getter_setter_code += "\t\t" + "return " + field_name + ".get(index);\n";
+        getter_setter_code += "\t" + "}\n";
+        getter_setter_code += "\n";
+        // set
+        getter_setter_code += "\t" + "void set" + upperFirstChar(field_name, false) + "(int index, " + element_type
+            + " x) {\n";
+        getter_setter_code += "\t\t" + field_name + ".set(index, x);\n";
+        getter_setter_code += "\t" + "}\n";
+        getter_setter_code += "\n";
+
       } else { // this field is a single variable
         // declaraction part
-        field_declaration_code += "\t" + "private" + (String)field_type + field_name + ";\n";
+        field_declaration_code += "\t" + "private " + (String) field_type + " " + field_name + ";\n";
 
         // toJSON part
         if (primitives.contains((String) field_type)) { // primitive or String type
-          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", String.valueOf(" + field_name + ")));\n";
+          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", String.valueOf(" + field_name
+              + ")));\n";
         } else { // object type
-          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name + ".toJSON(map)));\n";
-        }
-        
+          toJSON_code += "\t\t" + "values.put(new JSONObject().put(\"" + field_name + "\", " + field_name
+              + ".toJSON(map)));\n";
+        }  
+
         // getter & setter part
         getter_setter_code += "\n";
-        getter_setter_code += "\t" + (String)field_type + " get" + upperFirstChar(field_name) + "() {\n";
+        getter_setter_code += "\t" + "public " + (String) field_type + " get" + upperFirstChar(field_name, false) + "() {\n";
         getter_setter_code += "\t\t" + "return " + field_name + ";\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
-        getter_setter_code += "\t" + "void set" + upperFirstChar(field_name) + "(" + (String)field_type + "x) {\n";
+        getter_setter_code += "\t" + "public void set" + upperFirstChar(field_name, false) + "(" + (String) field_type + " x) {\n";
         getter_setter_code += "\t\t" + field_name + " = x;\n";
         getter_setter_code += "\t" + "}\n";
       }
-
     }
+
+    // enclosing all the parts of codes:
+    constructor_code += "\t" + "}\n";
+    toJSON_code += "\t\t" + "json_object.put(\"values\",values);\n";
+    toJSON_code += "\n";
+    toJSON_code += "\t\t" + "return json_object;\n";
+    toJSON_code += "\t" + "}\n";
+    
+    // combine all parts together
+    code += field_declaration_code + "\n";
+    code += constructor_code + "\n";
+    code += toJSON_code + "\n";
+    code += getter_setter_code + "\n";
+    code += "}";
+    
     return common_headers + "\n" + ordinary_class_specific_headers + "\n" + code;
   }
 
-  private String upperFirstChar(String input) {
+  private String deserializerVarCreater(int counter,
+                                        String class_name,
+                                        String field_name,
+                                        String element_type) {
+    String varCreater = "";
+    if (primitives.contains(element_type)) { // primitive type
+      if (!element_type.equals("char") && !element_type.equals("Character")) { // not char type
+        varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "("
+            + upperFirstChar(element_type, true) + ".valueOf(values.getJSONObject(" + String.valueOf(counter)
+            + ").getString(\"" + field_name + "\")));\n";
+      } else { // char type
+        varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "(" + "values.getJSONObject("
+            + String.valueOf(counter) + ").getString(\"" + field_name + "\").charAt(0));\n";
+      }
+    } else { // object class type
+      varCreater += "\t\t" + "obj.set" + upperFirstChar(field_name, false) + "(read" + upperFirstChar(element_type, false) + "(values.getJSONObject(" + String.valueOf(counter) + ").getJSONObject(\"" + field_name + "\"), map));/n";
+    }
+    return varCreater;
+  }
+
+  private String deserializerArrayCreater(int counter,
+                                          String class_name,
+                                          String field_name,
+                                          String element_type) {
+    String ans = "";
+    if (primitives.contains(element_type)) { // primitive type
+     
+      if (!element_type.equals("char") && !element_type.equals("Character")) { // not char type
+        ans += "\t\t\t" + element_type + " element = values.getJSONObject(" + String.valueOf(counter)
+          + ").getJSONArray(\"" + field_name + "\")" + ".get" + upperFirstChar(element_type, true) + "(i);\n";
+      } else { // char type
+        ans += "\t\t\t" + element_type + " element = values.getJSONObject(" + String.valueOf(counter) + ").getJSONArray(\"" + field_name
+          + "\")" + ".get" + upperFirstChar(element_type, true) + "(i).charAt(0);\n";
+      }
+      ans += "\t\t\t" + "obj.add" + upperFirstChar(field_name, false) + "(element);\n";
+    } else { // object class type
+      ans += "\t\t\t" + "JSONObject element = values.getJSONObject(" + String.valueOf(counter) + ").getJSONArray(\"" + field_name + "\").getJSONObject(i);\n";
+      ans += "\t\t\t" + "obj.add" + upperFirstChar(field_name, false) + "(read" + upperFirstChar(element_type, false) + "(element, map));\n";
+    }
+
+    // adding for-loop header:
+    ans = "\t\t" + "for (int i = 0; i < values.getJSONObject(" + String.valueOf(counter) + ").getJSONArray(\""
+        + field_name + "\").length(); i++) {\n" + ans;
+    // adding for-loop tail:
+    ans += "\t\t" + "}\n";
+
+    return ans;
+  }
+
+  
+  private String upperFirstChar(String input, boolean to_primitive) {
+    if (to_primitive) {
+      input = toPrimitive(input);
+    }
+    
     char first_char = input.charAt(0);
     String rest = input.substring(1);
     if (Character.isLetter(first_char)) {
       return String.valueOf(first_char).toUpperCase() + rest;
     } else {
       return input;
+    }
+  }
+
+  private String toPrimitive(String type) {
+    if (type.equals("Short")) {
+      return "short";
+    } else if (type.equals("Integer")) {
+      return "int";
+    } else if (type.equals("Long")) {
+      return "long";
+    } else if (type.equals("Byte")) {
+      return "byte";
+    } else if (type.equals("Character")) {
+      return "char";
+    } else if (type.equals("Float")) {
+      return "float";
+    } else if (type.equals("Double")) {
+      return "double";
+    } else if (type.equals("Boolean")) {
+      return "boolean";
+    } else {
+      return type;
     }
   }
 
