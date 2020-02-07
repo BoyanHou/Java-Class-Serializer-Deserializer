@@ -62,34 +62,34 @@ public class Ylass4 {
 
 
 	public Ylass3 getC3() {
-		return c3;
+		return this.c3;
 	}
 
 	public void setC3(Ylass3 x) {
-		c3 = x;
+		this.c3 = x;
 	}
 
 	public char getCh1() {
-		return ch1;
+		return this.ch1;
 	}
 
 	public void setCh1(char x) {
-		ch1 = x;
+		this.ch1 = x;
 	}
 	public int numChars() {
-		return chars.size();
+		return this.chars.size();
 	}
 
 	public void addChars(char x) {
-		chars.add(x);
+		this.chars.add(x);
 	}
 
 	public char getChars(int index) {
-		return chars.get(index);
+		return this.chars.get(index);
 	}
 
 	public void setChars(int index, char x) {
-		chars.set(index, x);
+		this.chars.set(index, x);
 	}
 
 

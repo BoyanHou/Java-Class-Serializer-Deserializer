@@ -69,50 +69,50 @@ public class Ylass3 {
 
 
 	public Ylass4 getC4() {
-		return c4;
+		return this.c4;
 	}
 
 	public void setC4(Ylass4 x) {
-		c4 = x;
+		this.c4 = x;
 	}
 
 	public int getI1() {
-		return i1;
+		return this.i1;
 	}
 
 	public void setI1(int x) {
-		i1 = x;
+		this.i1 = x;
 	}
 	public int numList() {
-		return list.size();
+		return this.list.size();
 	}
 
 	public void addList(int x) {
-		list.add(x);
+		this.list.add(x);
 	}
 
 	public int getList(int index) {
-		return list.get(index);
+		return this.list.get(index);
 	}
 
 	public void setList(int index, int x) {
-		list.set(index, x);
+		this.list.set(index, x);
 	}
 
 	public int numC4s() {
-		return c4s.size();
+		return this.c4s.size();
 	}
 
 	public void addC4s(Ylass4 x) {
-		c4s.add(x);
+		this.c4s.add(x);
 	}
 
 	public Ylass4 getC4s(int index) {
-		return c4s.get(index);
+		return this.c4s.get(index);
 	}
 
 	public void setC4s(int index, Ylass4 x) {
-		c4s.set(index, x);
+		this.c4s.set(index, x);
 	}
 
 

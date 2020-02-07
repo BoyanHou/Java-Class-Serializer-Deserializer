@@ -168,23 +168,23 @@ public class JavaCodingEngine implements CodingEngine{
         // getter & setter part
         // num 
         getter_setter_code += "\t" + "public int num" + upperFirstChar(field_name, false) + "() {\n";
-        getter_setter_code += "\t\t" + "return " + field_name + ".size();\n";
+        getter_setter_code += "\t\t" + "return this." + field_name + ".size();\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // add
         getter_setter_code += "\t" + "public void add" + upperFirstChar(field_name, false) + "(" + element_type + " x) {\n";
-        getter_setter_code += "\t\t" + field_name + ".add(x);\n";
+        getter_setter_code += "\t\t" + "this." + field_name + ".add(x);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // get
         getter_setter_code += "\t" + "public " + element_type + " get" + upperFirstChar(field_name, false) + "(int index) {\n";
-        getter_setter_code += "\t\t" + "return " + field_name + ".get(index);\n";
+        getter_setter_code += "\t\t" + "return this." + field_name + ".get(index);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         // set
         getter_setter_code += "\t" + "public void set" + upperFirstChar(field_name, false) + "(int index, " + element_type
             + " x) {\n";
-        getter_setter_code += "\t\t" + field_name + ".set(index, x);\n";
+        getter_setter_code += "\t\t" + "this." + field_name + ".set(index, x);\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
 
@@ -203,11 +203,11 @@ public class JavaCodingEngine implements CodingEngine{
         // getter & setter part
         getter_setter_code += "\n";
         getter_setter_code += "\t" + "public " + (String) field_type + " get" + upperFirstChar(field_name, false) + "() {\n";
-        getter_setter_code += "\t\t" + "return " + field_name + ";\n";
+        getter_setter_code += "\t\t" + "return this." + field_name + ";\n";
         getter_setter_code += "\t" + "}\n";
         getter_setter_code += "\n";
         getter_setter_code += "\t" + "public void set" + upperFirstChar(field_name, false) + "(" + (String) field_type + " x) {\n";
-        getter_setter_code += "\t\t" + field_name + " = x;\n";
+        getter_setter_code += "\t\t" + "this." + field_name + " = x;\n";
         getter_setter_code += "\t" + "}\n";
       }
     }

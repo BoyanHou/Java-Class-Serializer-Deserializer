@@ -63,51 +63,51 @@ public class Ylass1 {
 
 
 	public int getI1() {
-		return i1;
+		return this.i1;
 	}
 
 	public void setI1(int x) {
-		i1 = x;
+		this.i1 = x;
 	}
 
 	public int getI2() {
-		return i2;
+		return this.i2;
 	}
 
 	public void setI2(int x) {
-		i2 = x;
+		this.i2 = x;
 	}
 
 	public boolean getB1() {
-		return b1;
+		return this.b1;
 	}
 
 	public void setB1(boolean x) {
-		b1 = x;
+		this.b1 = x;
 	}
 
 	public boolean getB2() {
-		return b2;
+		return this.b2;
 	}
 
 	public void setB2(boolean x) {
-		b2 = x;
+		this.b2 = x;
 	}
 
 	public String getS1() {
-		return s1;
+		return this.s1;
 	}
 
 	public void setS1(String x) {
-		s1 = x;
+		this.s1 = x;
 	}
 
 	public String getS2() {
-		return s2;
+		return this.s2;
 	}
 
 	public void setS2(String x) {
-		s2 = x;
+		this.s2 = x;
 	}
 
 }

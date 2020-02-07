@@ -63,51 +63,51 @@ public class Ylass2 {
 
 
 	public byte getB1() {
-		return b1;
+		return this.b1;
 	}
 
 	public void setB1(byte x) {
-		b1 = x;
+		this.b1 = x;
 	}
 
 	public char getC1() {
-		return c1;
+		return this.c1;
 	}
 
 	public void setC1(char x) {
-		c1 = x;
+		this.c1 = x;
 	}
 
 	public short getS1() {
-		return s1;
+		return this.s1;
 	}
 
 	public void setS1(short x) {
-		s1 = x;
+		this.s1 = x;
 	}
 
 	public long getL1() {
-		return l1;
+		return this.l1;
 	}
 
 	public void setL1(long x) {
-		l1 = x;
+		this.l1 = x;
 	}
 
 	public float getF1() {
-		return f1;
+		return this.f1;
 	}
 
 	public void setF1(float x) {
-		f1 = x;
+		this.f1 = x;
 	}
 
 	public double getD1() {
-		return d1;
+		return this.d1;
 	}
 
 	public void setD1(double x) {
-		d1 = x;
+		this.d1 = x;
 	}
 
 }
