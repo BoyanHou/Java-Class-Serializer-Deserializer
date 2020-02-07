@@ -33,7 +33,15 @@ Comments: There are some minor bugs in the code, which are not so hard to debug 
 Task: Support stream input (currently the class builder can only take a string); then use the given testing infrastructure to further test the code.
 Estimated Time:  2 hours
 Target Deadline:  2/6/2020 8:30pm
+Actual Time: 2.5 hours
+Actual Delivery: 2/6/2020 9:00pm
+Commit ID: 4b104c67464f634f7d2bb521b046070a60886c01
+Comments: Time just as expected. Found an error in class builder that I didn't put the "this" for setters and getters. Fixed that. Passed all given test cases (except those multi-dimensional arraies).
+
+Task: write reflectoin
+Estimated Time:  0.5 hour
+Target Deadline:  2/6/2020 10:00pm
 Actual Time: 
-Actual Delivery:
-Commit ID:
+Actual Delivery: 
+Commit ID: 
 Comments: 
