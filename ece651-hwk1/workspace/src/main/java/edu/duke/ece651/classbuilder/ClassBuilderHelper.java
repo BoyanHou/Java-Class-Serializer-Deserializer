@@ -1,11 +1,14 @@
 package edu.duke.ece651.classbuilder;
 
 import java.io.File;
+import java.io.InputStreamReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.io.BufferedReader;
 import org.json.JSONObject;
 
 public class ClassBuilderHelper {
@@ -17,7 +20,7 @@ public class ClassBuilderHelper {
   
   public ClassBuilderHelper(String input,
                             String language_suffix,
-                           CodingEngine coding_engine) {
+                            CodingEngine coding_engine) {
     JSONObject JSONObj = new JSONObject(input);
     class_map = new HashMap<>();
     setPackageName(JSONObj);
@@ -25,9 +28,28 @@ public class ClassBuilderHelper {
     this.language_suffix = language_suffix;
     this.coding_engine = coding_engine;
   }
+  
+  public ClassBuilderHelper(InputStream input_stream,
+                            String language_suffix,
+                            CodingEngine coding_engine) throws IOException {
+    InputStreamReader stream_reader = new InputStreamReader(input_stream);
+    BufferedReader buffer_reader = new BufferedReader(stream_reader);
+    StringBuffer string_buffer = new StringBuffer();
+    String str = "";
 
-  //public ClassBuilder (InputStream input);
-
+    while((str = buffer_reader.readLine())!= null){
+         string_buffer.append(str);
+    }
+    String input = string_buffer.toString();
+    
+    JSONObject JSONObj = new JSONObject(input);
+    class_map = new HashMap<>();
+    setPackageName(JSONObj);
+    setClassMap(JSONObj);
+    this.language_suffix = language_suffix;
+    this.coding_engine = coding_engine;
+  }
+                            
   // set package name
   private void setPackageName(JSONObject JSONObj) {
     if (JSONObj.has("package")) {
@@ -58,7 +80,7 @@ public class ClassBuilderHelper {
     return "package " + package_name + ";\n" + coding_engine.getOrdinaryClassCode(class_map.get(class_name));
   }
   
-  public void createAllClasses(String basePath) {
+  public void createAllClasses(String basePath) throws IOException {
     // create the Deserializer class
     String deserializer_code = "package " + package_name + ";\n" + coding_engine.getDeserializerCode(class_map);
     writeStringToFile(deserializer_code,
@@ -78,20 +100,17 @@ public class ClassBuilderHelper {
 
   private void writeStringToFile(String content,
                                  String path,
-                                 String filename) {    
-    try {
-      // if the path does not exist: create that path
-      File dirs = new File(path);
-      if (!dirs.exists()) {
-        dirs.mkdirs();
-      }
-      // create output stream and overwrite to a designated filename
-      FileOutputStream out = new FileOutputStream(path+filename, false);
-      out.write(content.getBytes());
-      out.close();
+                                 String filename) throws IOException {    
+    
+    // if the path does not exist: create that path
+    File dirs = new File(path);
+    if (!dirs.exists()) {
+      dirs.mkdirs();
     }
-    catch (IOException exception) {
-      exception.printStackTrace();
-    }
+    // create output stream and overwrite to a designated filename
+    FileOutputStream out = new FileOutputStream(path+filename, false);
+    out.write(content.getBytes());
+    out.close();
+    
   }
 }
