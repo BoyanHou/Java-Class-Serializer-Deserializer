@@ -15,4 +15,5 @@ data package any time.
   The deserializer can deal with this kind of situation intelligently so that it will not run into a dead loop. 
 - Ability to deal with JSON Array of JSON Objects  
 - Depenency Injection & Control Inversion to make it "Open/Closed"  
-  This project has been made very flexible and open to extension through careful design: although currently it only
+  Although currently this project only works with java, but it is designed to be very flexible and can be extended to work with any other desired languages such as Python and C++ with only minimum amount of implementation of the provided interface needed.  
+  
